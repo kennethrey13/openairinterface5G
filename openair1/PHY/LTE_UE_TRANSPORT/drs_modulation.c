@@ -29,6 +29,9 @@
 * \note
 * \warning
 */
+
+
+
 #include "PHY/defs_UE.h"
 #include "PHY/phy_extern_ue.h"
 #include "PHY/sse_intrin.h"
@@ -62,10 +65,10 @@ int generate_drs_pusch(PHY_VARS_UE *ue,
   LTE_DL_FRAME_PARMS *fp = (ue==NULL) ? frame_parms : &ue->frame_parms;
   int32_t *txF = (ue==NULL) ? txdataF[ant] : ue->common_vars.txdataF[ant];
   uint32_t u,v,alpha_ind;
-  uint32_t u0 = (ue==NULL) ? 0 : frame_parms->pusch_config_common.ul_ReferenceSignalsPUSCH.grouphop[subframe<<1];
-  uint32_t u1 = (ue==NULL) ? 0 : frame_parms->pusch_config_common.ul_ReferenceSignalsPUSCH.grouphop[1+(subframe<<1)];
-  uint32_t v0 = (ue==NULL) ? 0 : frame_parms->pusch_config_common.ul_ReferenceSignalsPUSCH.seqhop[subframe<<1];
-  uint32_t v1 = (ue==NULL) ? 0 : frame_parms->pusch_config_common.ul_ReferenceSignalsPUSCH.seqhop[1+(subframe<<1)];
+  uint32_t u0 = (ue==NULL || frame_parms==NULL) ? 0 : frame_parms->pusch_config_common.ul_ReferenceSignalsPUSCH.grouphop[subframe<<1];
+  uint32_t u1 = (ue==NULL || frame_parms==NULL) ? 0 : frame_parms->pusch_config_common.ul_ReferenceSignalsPUSCH.grouphop[1+(subframe<<1)];
+  uint32_t v0 = (ue==NULL || frame_parms==NULL) ? 0 : frame_parms->pusch_config_common.ul_ReferenceSignalsPUSCH.seqhop[subframe<<1];
+  uint32_t v1 = (ue==NULL || frame_parms==NULL) ? 0 : frame_parms->pusch_config_common.ul_ReferenceSignalsPUSCH.seqhop[1+(subframe<<1)];
 
   int32_t ref_re,ref_im;
   uint8_t harq_pid = (proc == NULL) ? 0: subframe2harq_pid(fp,proc->frame_tx,subframe);
